@@ -1,0 +1,17 @@
+#outerRectangle {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    position: relative;
+}
+
+#innerRectangle {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
