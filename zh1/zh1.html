@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="zh1.css">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <label for="bookSelector">Kiválasztott könyv</label>
+        <select id="bookSelector">
+            <option value="11.22.63">11.22.63</option>
+            <option value="A Man Called Ove">A Man Called Ove</option>
+            <option value="Hitchiker's Guide to the Galaxy">Hitchiker's Guide to the Galaxy</option>
+            <option value="Masters of Doom">Masters of Doom</option>
+            <option value="Mistborn: The Final Empire">Mistborn: The Final Empire</option>
+        </select>
+        <button id="queryBook">Adatok lekérése</button>
+
+        <div id="resultsContainer"></div>
+
+        <a id="openWebshop"
+           href="https://blackwells.co.uk/bookshop/home"
+           target="_blank"
+           style="display: none">Webshop megnyitása</a>
+
+        <script src="zh1.js"></script>
+    </body>
+</html>
