@@ -34,9 +34,42 @@ form.addEventListener('submit', (event) => {
     spanError.innerHTML = 'The word is not considered acceptable!'
   }
 
-  inputGuess.value.split('').reduce((partialResult, nextLetter, currentIndex) => {
+  const matchingLetters = inputGuess.value.split('').reduce((partialResult, nextLetter, currentIndex) => {
+    if (nextLetter === word[currentIndex]) {
+      partialResult++;
+    }
+    return partialResult;
+  }, 0);
 
-  })
+  console.log('matchingLetters', matchingLetters);
+
+  tableGuesses.innerHTML = `
+    <tr ${matchingLetters === 5 ? 'class="correct"' : ''}>
+        <td>${inputGuess.value}</td>
+        <td>${matchingLetters}</td>
+    </tr>
+  ` + tableGuesses.innerHTML;
+
+  if (matchingLetters === 5) {
+    divEndOfGame.hidden = false;
+  }
+
+
+})
+
+btnRestart.addEventListener('click', (event) => {
+  window.location.reload();
 })
 
 inputGuess.select();
+
+
+
+
+
+
+
+
+
+
+
