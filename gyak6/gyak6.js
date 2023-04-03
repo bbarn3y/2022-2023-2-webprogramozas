@@ -42,12 +42,46 @@ class Bird {
     }
 }
 
+class Column {
+    constructor(context, x, y, width, height) {
+        this.context = context;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    draw() {
+        context.fillStyle = 'green';
+        context.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    update(dt) {
+        this.x -= 100 * dt / 1000;
+    }
+}
+
 const canvas = document.getElementById('flappyCanvas');
 const context = canvas.getContext('2d');
 
 const bird = new Bird(context,  50, 150, 50, 50, 10, 150);
+let columns = [];
+
+const columnGap = 200;
+const columnDistance = 200;
 
 let gameOver = false;
+
+function addColumns() {
+    const topColumnHeight = random(75, 175);
+    columns.push(...[
+       new Column(context, canvas.width, 0, 40, topColumnHeight),
+       new Column(context, canvas.width, topColumnHeight + columnGap, 40,
+           canvas.height - topColumnHeight - columnGap)
+    ]);
+}
+
+addColumns();
 
 let previousTime = performance.now();
 function cycle(now = performance.now()) {
@@ -80,6 +114,10 @@ function draw() {
 
     bird.draw();
 
+    columns.forEach((column) => {
+        column.draw();
+    });
+
     if (gameOver) {
         context.font = '40px Arial';
         context.fillStyle = 'orange';
@@ -89,9 +127,32 @@ function draw() {
 
 function update(dt) {
     bird.update(dt);
+
+    columns.forEach((column) => {
+        column.update(dt);
+    });
+
+    if (columns.some((column) => rectanglesCollide(bird, column))) {
+        gameOver = true;
+    }
+
+    columns = columns.filter((column) =>
+        column.x + column.width > 0
+    )
+
+    if (columns[columns.length - 1].x <= canvas.width - columnDistance) {
+        addColumns();
+    }
 }
 
 cycle();
+
+function rectanglesCollide(a, b) {
+    return a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+}
 
 
 
