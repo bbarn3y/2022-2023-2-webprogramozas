@@ -31,6 +31,14 @@ class Bird {
     update(dt) {
         this.velocity += this.acceleration * dt / 1000;
         this.y += this.velocity * dt / 1000;
+
+        if (this.y < 0) {
+            this.y = 0;
+            gameOver = true;
+        } else if(this.y >= canvas.height - bird.height) {
+            this.y = canvas.height - bird.height;
+            gameOver = true;
+        }
     }
 }
 
@@ -71,6 +79,12 @@ function draw() {
     // context.clearRect(100, 100, 50, 50);
 
     bird.draw();
+
+    if (gameOver) {
+        context.font = '40px Arial';
+        context.fillStyle = 'orange';
+        context.fillText('Game Over!', 200, 200);
+    }
 }
 
 function update(dt) {
