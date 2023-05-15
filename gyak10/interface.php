@@ -34,10 +34,21 @@ class PersonsFromCSV extends PersonsFromWhatever {
     }
 }
 
+class PersonsFromJson extends PersonsFromWhatever {
+    function getPersons(): array {
+        return json_decode(file_get_contents('persons.json'), true);
+    }
+}
+
 $personsAPI = new PersonsFromCSV();
+$personsJsonAPI = new PersonsFromJson();
+
 
 foreach ($personsAPI->getPersonsOverAge(18) as $adultPerson) {
     echo nl2br($adultPerson['name'] . PHP_EOL);
 }
 
+foreach ($personsJsonAPI->getPersonsOverAge(30) as $adultPerson) {
+    echo nl2br($adultPerson['name'] . PHP_EOL);
+}
 
